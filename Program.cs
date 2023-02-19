@@ -1,39 +1,65 @@
-﻿using System;
-using Utils;
+using System;
+using Library;
 
-namespace ConsoleApp1
+namespace Calc_By_Coderov
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            
+            var InstanceClass = new Program();
+            InstanceClass.Flow();
         }
-        public void AdditionFraction(){
-        // Prompt the user to enter the first fraction
-            Console.Write("Enter the first fraction (in the form a/b): ");
-            string[] fraction1 = Console.ReadLine().Split('/');
-            int numerator1 = int.Parse(fraction1[0]);
-            int denominator1 = int.Parse(fraction1[1]);
+        public void Flow()
+        {
+            Utils.UIHorizontalLine(50);
+            Console.WriteLine($"\nChoose a mathematical action option:\n \n 1.{Utils.MathType.AdditionInteger} \n 2.{Utils.MathType.SubtractionInteger} \n 3.{Utils.MathType.AdditionFractions} \n 4.{Utils.MathType.SubtractionFractions} (Soon...) \n 5.{Utils.MathType.ShortenFraction} (Soon...)");
 
-            // Prompt the user to enter the second fraction
-            Console.Write("Enter the second fraction (in the form a/b): ");
-            string[] fraction2 = Console.ReadLine().Split('/');
-            int numerator2 = int.Parse(fraction2[0]);
-            int denominator2 = int.Parse(fraction2[1]);
+            Utils.UIHorizontalLine(50);
 
-            // Add the fractions
-            int numeratorResult = numerator1 * denominator2 + numerator2 * denominator1;
-            int denominatorResult = denominator1 * denominator2;
+            Console.WriteLine("\n");
+            Utils.Line("Enter the number of the desired section:");
 
-            // Reduce the result fraction to lowest terms
-            int gcd = Utils.GCD(numeratorResult, denominatorResult);
-            numeratorResult /= gcd;
-            denominatorResult /= gcd;
+            int element = int.Parse(Console.ReadLine());
 
-            // Output the result
-            Console.WriteLine($"The sum of {numerator1}/{denominator1} and {numerator2}/{denominator2} is {numeratorResult}/{denominatorResult}");
+            ChooseElement(element);
+        }
+        public static void ReStart()
+        {
+            var InstanceClass = new Program();
+            InstanceClass.Flow();
+        }
+
+        public static void ChooseElement(int item)
+            {
+                switch (item)
+                {
+                    case 1:
+                        Utils.LineColor(ConsoleColor.DarkGreen);
+                        Utils.Line("You have chosen: Addition of numbers (integers)");
+                        Utils.AdditionInteger();
+                        break;
+                    case 2:
+                        Utils.LineColor(ConsoleColor.DarkGreen);
+                        Utils.Line("You have chosen: Subtraction of numbers (integers)");
+                        Utils.SubtractionInteger();
+                        break;
+                    case 3:
+                        Utils.LineColor(ConsoleColor.DarkGreen);
+                        Utils.Line("You have chosen: Addition Fractions");
+                        Utils.AdditionFraction();
+                        
+                        break;
+                    default:
+                        Utils.LineColor(ConsoleColor.Red);
+                        Utils.Line("Error: Unknown value");
+                        
+                        ReStart();
+                        break;
+                }
+            }
+
         }
         
     }
-}
